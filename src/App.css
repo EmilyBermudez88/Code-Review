@@ -1,38 +1,472 @@
-.App {
+html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figcaption,figure,main{display:block}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}audio,video{display:inline-block}audio:not([controls]){display:none;height:0}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{font-family:sans-serif;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}button,html [type=button],[type=reset],[type=submit]{-webkit-appearance:button}button::-moz-focus-inner,[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring,[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{display:inline-block;vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details,menu{display:block}summary{display:list-item}canvas{display:inline-block}template{display:none}[hidden]{display:none}
+
+.clearfix:after {visibility: hidden; display: block; font-size: 0; content: ''; clear: both; height: 0; }
+
+html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;}
+
+*, *:before, *:after {box-sizing: inherit}
+
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; border: 0; padding: 0; white-space: nowrap; clip-path: inset(100%); clip: rect(0 0 0 0); overflow: hidden;}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Montserrat:wght@200;400&display=swap');
+
+/****** BASE STYLES *******/
+
+body {
+  font-size: 125%;
+  background-image: url(./assets/tabletop.png);
+  background-size: contain;
+  font-family:"Montserrat";
+}
+.wrapper {
+  max-width:1200px;
+  width:90%;
+  margin: 0 auto;
+}
+
+img{
+  display:block;
+  max-width:100%
+}
+
+h2, h3, p{
+  margin:0;
+}
+
+h2{
+  text-transform: uppercase;
+  margin: 0 0 10px 40px;
+  font-size: 1.3rem;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+p, select {
+  font-size: 1rem;
+  font-family: "Montserrat";
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+ul{
+  list-style-type: none;
+  margin:0;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
+a{
+  color:white;
+  text-decoration: none;
+  font-weight:bolder;
+}
+a:hover,
+a:focus {
+  color:rgb(73, 68, 59)
+}
+
+button {
+  border: 1px solid black;
+  padding: 8px;
+  z-index: 10;
+  font-family: "Montserrat";
+  font-size: 1rem;
+  text-transform:uppercase;
+}
+
+hr{
+  margin: 15px 0;
+  height:1px;
+  width:290px;
+  background-color:black;
+  border: 0 none;
+}
+
+/***** NAV ******/
+nav {
+  position:fixed;
+  width:100%;
+  background-color:rgb(184, 172, 153);
+  z-index:20;
+  overflow:hidden;
+}
+
+nav .wrapper {
+  display:flex;
   flex-direction: column;
+  justify-content: flex-end;
+  align-items:flex-end;
+  position:relative;
+}
+
+nav button {
+  background-color: transparent;
+  border:none;
+  padding: 5px;
+  margin-top: 5px;
+}
+.shoppingCart {
+  font-size: 35px;
+  margin: 5px 0;
+  color:white;
+  text-align: right;
+  transition: 0.4s;
+}
+
+.shoppingCart:hover,
+.shoppingCart:focus {
+  color:rgb(192, 93, 35);
+}
+
+.totalCartPurchases {
+  position:absolute;
+  top: 32px;
+  right:38px;
+  z-index: 20;
+  padding: 2px 7px;
+  font-weight:bolder;
+  color:rgb(255, 255, 255);
+  background-color: rgb(192, 93, 35);
+  border-radius:50%;
+}
+
+/******* SHOPPING CART  *********/
+
+.cartMenu {
+  padding-left: 0;
+  position:relative;
+}
+
+.cartMenu .close{
+  position:absolute;
+  top: -20px;
+  padding:0 5px;
+  color:rgb(90, 84, 74);
+  background-color: transparent;
+  font-size: 2rem;
+  transition: 0.4s;
+}
+
+.cartMenu .close:hover,
+.cartMenu .close:focus {
+  color:rgba(255,255,255,0.8);
+  background-color:rgb(104, 97, 86);
+}
+
+.fa-xmark{
+  font-size: 1rem;
+  margin:0 8px 0 0;
+  font-family:"Montserrat";
+}
+
+.cartMenu li {
+  display:flex;
+  flex-direction:row;
+  margin-top: 30px;
+  width: 320px;
+  background-color:rgba(255,255,255,0.3);
+}
+
+.cartImage{
+  max-width: 100px;
+  display:flex;
   align-items: center;
+  margin-right:20px;
+  padding: 8px;
+  background-color:white;
+}
+
+.cartText{
+  display:flex;
+  flex-direction:column;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 10px 0;
 }
 
-.App-link {
-  color: #61dafb;
+.cartText h2 {
+  margin: 0 0 5px 0;
+  text-align: left;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.cartText button {
+  font-size: 1rem;
+  text-align: left;
+  color:rgb(71, 66, 58);
+  transition: 0.3s;
+}
+
+.cartText button:hover,
+.cartText button:focus {
+  color:white;
+}
+
+.totalCost{
+  margin: 15px 0;
+}
+
+/******** HEADER  ********/
+header {
+  min-height: 510px;
+  position:relative;
+  display:flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;  
+}
+.scrabbleBoard{
+  position:absolute;
+  rotate: -40deg;
+  left:-90px;
+  top: -50%;
+  overflow:hidden;
+  max-width: 780px;
+}
+
+header p {
+  margin-right: 40px;
+}
+
+h1{
+  position:absolute;
+  right: 100px;
+  top: 25%;
+  width: 500px;
+}
+/********** MAIN *********/
+
+main {
+  padding-top: 40px;
+  background-color: rgba(255,255,255,0.2);
+}
+.wrapper {
+  display:flex;
+  flex-direction:row;
+  justify-content: space-between;
+}
+
+
+/******* FORM ********/
+.form{
+  width: 25%;
+  border-right: 3px solid black;
+}
+
+form{
+  position:sticky;
+  top:85px;
+  padding-right:10px;
+}
+
+select {
+  display:block;
+  margin: 20px 0;
+  padding: 3px 10px;
+  width: 80%;
+  background-color: rgba(255,255,255,0.8);
+  border:none;
+}
+
+form button {
+  background-color: rgba(255,255,255,0.4);
+}
+
+/******** GALLERY ********/
+.gallery {
+  width: 75%;
+}
+
+.gameGallery {
+  display:flex;
+  flex-direction:row;
+  justify-content: space-between;
+  flex-wrap:wrap;
+  width: 100%;
+}
+
+.gameGallery h2 {
+  margin-left: 5%;
+}
+
+.gameContainer {
+  width: 30%;
+  margin-bottom: 30px;
+  padding: 25px;
+  position:relative;
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color:rgba(255,255,255,0.6);
+  box-shadow: 2px 2px 8px rgba(64, 64, 64, 0.1), -2px -2px 8px rgba(66, 66, 66, 0.1);
+}
+
+.imgContainer {
+  margin-bottom: 10px;
+  padding: 8px;
+  background-color:white;
+  border:1px solid black;
+}
+
+.imgContainer img {
+  object-fit: contain;
+  height: 200px;
+  object-position: center;
+  margin: 0 auto;
+}
+
+.gameText {
+  display:flex;
+  flex-direction:column;
+  justify-content: space-between;
+}
+
+.gameDetails {
+  margin: 0 auto;
+}
+
+.price {
+  margin:5px 0 10px 0;
+}
+
+.gameContainer button {
+  background-color:rgba(231, 129, 71, 0.5);
+  color: black;
+  transition: 0.4s;
+  padding: 8px 10px;
+}
+
+.gameContainer button:hover,
+.gameContainer button:focus {
+  background-color:rgba(243, 144, 87, 1);
+  color:white;
+}
+
+/****** FOOTER *******/
+footer {
+  background-color: rgb(184, 172, 153);
+  color:white;
+  text-align: center;
+  padding: 8px 0;
+}
+
+/****** MEDIA QUERIES *******/
+
+@media(max-width:1150px){
+  h1{
+    width:430px;
+    top: 35%;
+    right:5%;
   }
-  to {
-    transform: rotate(360deg);
+  .scrabbleBoard{
+    left: -140px;
+    top: -55%;
+  }
+  .gameContainer {
+    width: 45%;
+  }
+}
+
+@media(max-width: 900px){
+  .scrabbleBoard{
+    max-width: 580px;
+    top:-90px;
+    rotate: -48deg;
+    /* left:-200px; */
+  }
+  h1{
+    width: 410px;
+  }
+  h3{
+    font-size: 1.2rem;
+  }
+  .form {
+      width: 34%;
+  }
+  .gallery{
+      width: 66%;
+  }
+}
+
+@media(max-width: 765px){
+  .scrabbleBoard{
+    max-width: 440px;
+    top: 0px;
+    left:-90px;
+    rotate: -52deg;
+  }
+  h1{
+    width: 395px;
+  }
+  .gameContainer {
+    width: 80%;
+    margin: 15px auto;
+  }
+}
+
+@media(max-width: 660px){
+  .scrabbleBoard{
+    top: -50px;
+  }
+  h1{
+    top: 43%;
+    width: 360px;
+  }
+  label{
+    font-size:1rem;
+  }
+}
+
+@media(max-width: 560px){
+  .wrapper {
+    flex-direction:column;
+  }
+
+  header{
+    min-height: 380px;
+  }
+  h1{
+    width: 300px;
+  }
+
+  .scrabbleBoard{
+    max-width: 400px;
+    left:-100px;
+    top:-115px;
+  }
+
+  .form{
+    border-right:none;
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  select{
+    width: 150px;
+    margin: 15px auto;
+  }
+
+  .gallery{
+    width: 100%;
+  }
+
+  .gameGallery {
+    padding-left:0;
+  }
+
+  .imgContainer img {
+    height: 300px;
+  }
+}
+
+@media(max-width: 400px){
+  h1{
+    top: 45%;
+    width: 270px;
+  }
+  .scrabbleBoard{
+    top: -140px;
+  }
+
+  .cartMenu li {
+    width: 290px;
+  }
+  .imgContainer img {
+    height: 230px;
   }
 }
